@@ -6,8 +6,6 @@
 
 A self-contained local web app for authorized reconnaissance: add a target
 domain, launch a scan pipeline, watch it run live, and export findings.
-*Imbas* is the Old Irish word for inspired insight — what reconnaissance
-is supposed to produce.
 
 ## ⚠️ Authorized use only
 
