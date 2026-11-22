@@ -9,8 +9,16 @@ domain, launch a scan pipeline, watch it run live, and export findings.
 *Imbas* is the Old Irish word for inspired insight — what reconnaissance
 is supposed to produce.
 
-**Authorized targets only.** Point it at domains you own or have written
-permission to test.
+## ⚠️ Authorized use only
+
+IMBAS is a defensive security tool for **attack-surface monitoring of assets
+you own or are explicitly authorized to test**. Scanning infrastructure you
+don't have permission to test may be illegal in your jurisdiction. The
+authors accept no liability for misuse — by using this software you confirm
+you have the right to scan the targets you point it at.
+
+All checks are passive or read-only (DNS lookups, HTTP GETs, connect-style
+port scans) and bounded by design, but "polite" is not "authorized".
 
 ## Quick start
 
