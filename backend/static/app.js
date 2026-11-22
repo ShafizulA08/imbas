@@ -69,6 +69,8 @@ function go(view, scanId = null) {
   $("#view-title").textContent =
     view === "scan" ? `Scan #${scanId}` :
     view[0].toUpperCase() + view.slice(1);
+  history.replaceState(null, "",
+    view === "scan" ? `#scan/${scanId}` : `#${view}`);
   stopPolling();
   render();
 }
@@ -636,5 +638,10 @@ window.openScanModal = openScanModal;
 window.openScheduleModal = openScheduleModal;
 window.deleteTarget = deleteTarget;
 
-/* boot */
-go("dashboard");
+/* boot — deep-linkable: #dashboard, #targets, #scans, #findings, #scan/8 */
+(function boot() {
+  const m = location.hash.match(/^#scan\/(\d+)$/);
+  if (m) return go("scan", +m[1]);
+  const view = location.hash.slice(1);
+  go(["dashboard", "targets", "scans", "findings"].includes(view) ? view : "dashboard");
+})();

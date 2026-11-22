@@ -27,6 +27,14 @@ cd imbas
 
 Open http://127.0.0.1:8000.
 
+## Screenshots
+
+| Dashboard | Scan detail |
+|:---:|:---:|
+| ![Dashboard](assets/screenshots/dashboard.png) | ![Scan detail](assets/screenshots/scan-detail.png) |
+
+Every view is deep-linkable (`#scan/8`, `#targets`, …), so individual scans can be bookmarked.
+
 ## Scan pipeline
 
 | Module    | What it does                                                        |
