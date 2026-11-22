@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMBAS</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand-mark" src="/assets/logo-96.png" alt="IMBAS logo" width="30" height="30">
+      <div>
+        <div class="brand-name">IMBAS</div>
+        <div class="brand-sub">attack-surface insight</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <button class="nav-item active" data-view="dashboard">Dashboard</button>
+      <button class="nav-item" data-view="targets">Targets</button>
+      <button class="nav-item" data-view="scans">Scans</button>
+      <button class="nav-item" data-view="findings">Findings</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="online"><span class="dot"></span>engine ready</div>
+      <div class="disclaimer">authorized targets only</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1 id="view-title">Dashboard</h1>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </header>
+    <section id="view" class="view"></section>
+  </main>
+</div>
+
+<!-- Add target modal -->
+<div class="modal-backdrop hidden" id="modal-target">
+  <div class="modal">
+    <h2>New target</h2>
+    <p class="modal-hint">Only add domains you are authorized to test.</p>
+    <label>Domain <span class="req">*</span></label>
+    <input id="t-domain" type="text" placeholder="example.com" autocomplete="off" spellcheck="false">
+    <label>Display name</label>
+    <input id="t-name" type="text" placeholder="Example Corp (optional)">
+    <label>Notes</label>
+    <textarea id="t-notes" rows="2" placeholder="engagement, scope notes…"></textarea>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn primary" id="t-save">Add target</button>
+    </div>
+  </div>
+</div>
+
+<!-- New scan modal -->
+<div class="modal-backdrop hidden" id="modal-scan">
+  <div class="modal">
+    <h2>New scan</h2>
+    <p class="modal-hint" id="s-target-hint"></p>
+    <label>Modules</label>
+    <div class="module-grid" id="s-modules"></div>
+    <div class="opt-row">
+      <div>
+        <label>Top ports (nmap)</label>
+        <input id="s-topports" type="number" value="100" min="10" max="1000" step="10">
+      </div>
+      <div>
+        <label>Max IPs to port-scan</label>
+        <input id="s-maxips" type="number" value="25" min="1" max="200">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn primary" id="s-launch">Launch scan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule modal -->
+<div class="modal-backdrop hidden" id="modal-schedule">
+  <div class="modal" style="width:520px">
+    <h2>Recurring scan</h2>
+    <p class="modal-hint" id="sch-hint"></p>
+    <label>Interval (hours)</label>
+    <input id="sch-interval" type="number" min="1" max="720" value="24">
+    <label>Webhook URL <span class="dim">(optional — notified of new critical/high findings)</span></label>
+    <input id="sch-webhook" type="url" placeholder="https://hooks.slack.com/services/…">
+    <p class="modal-hint" style="margin-top:8px">Runs all modules. Each run is diffed against the previous scan of this target; the webhook fires when new critical/high findings, secrets, hosts or ports appear.</p>
+    <div class="modal-actions">
+      <button class="btn primary" id="sch-save">Schedule</button>
+      <button class="btn ghost" data-close>Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Diff modal -->
+<div class="modal-backdrop hidden" id="modal-diff">
+  <div class="modal" style="width:600px">
+    <h2>Compare scans</h2>
+    <p class="modal-hint" id="d-hint"></p>
+    <label>Compare with scan…</label>
+    <select id="d-other"></select>
+    <div class="modal-actions" style="justify-content:flex-start">
+      <button class="btn primary" id="d-run">Compare</button>
+    </div>
+    <div id="d-result"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

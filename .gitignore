@@ -1,0 +1,12 @@
+# --- local data (contains real scan results — never upload) ---
+data/
+
+# --- python ---
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# --- runtime / os junk ---
+*.log
+.DS_Store
